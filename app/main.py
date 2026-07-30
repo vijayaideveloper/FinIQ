@@ -15,13 +15,16 @@ from fastapi.staticfiles import StaticFiles
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 IMAGE_DIR = BASE_DIR / "image_dashboards"
+STATIC_DIR = BASE_DIR / "static"
 IMAGE_DIR.mkdir(exist_ok=True)
 
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
+app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 app.mount("/image_dashboards", StaticFiles(directory=str(IMAGE_DIR)), name="image_dashboards")
+
 
 
 @app.get("/")

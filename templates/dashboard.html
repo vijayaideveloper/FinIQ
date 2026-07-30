@@ -4,39 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FinIQ Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}">
 </head>
 <body>
 
-    <h1>FinIQ Dashboard</h1>
-
-    <div>
-
+    <div class="letterhead">
+        <div class="seal">FQ</div>
         <div>
-
-            <form action="/dashboard/" method="get" style="display:inline;">
-                <button type="submit">Generate</button>
-            </form>
-
+            <h1>FinIQ Dashboard</h1>
+            <span class="tagline">Statement of accounts</span>
         </div>
+    </div>
 
+    <div class="page">
+        <div class="ledger">
+            <div class="ledger-inner">
 
-        <div>
+                <div class="action-row">
+                    <form action="/dashboard/" method="get">
+                        <button type="submit" class="btn-primary">Generate</button>
+                    </form>
 
-            <form action="/profile" method="get" style="display:inline;">
-                <button type="submit">Profile</button>
-            </form>
+                    <form action="/profile" method="get">
+                        <button type="submit">Profile</button>
+                    </form>
+                </div>
+
+                <hr class="divider">
+
+                {% if image %}
+                    <p class="eyebrow">Overview</p>
+                    <div class="chart-frame">
+                        <img src="{{ image }}" alt="Dashboard">
+                    </div>
+                {% else %}
+                    <p class="empty-note">No dashboard image generated yet.</p>
+                {% endif %}
+
+            </div>
         </div>
-
-        <br>
-
-        <div>
-            {% if image %}
-                <img src="{{ image }}" alt="Dashboard" width="700">
-            {% else %}
-                <p>No dashboard image generated yet. </p>
-            {% endif %}
-        </div>
-
     </div>
 
 </body>

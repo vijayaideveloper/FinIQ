@@ -4,36 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile-FinIQ</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}">
 </head>
 <body>
-<div>
-    <div>
-        <div><button onclick="window.location.href='dashboard'">Back</button></div>
-        <div><form action="/logout">
-                <button type="submit" method="get">logout</button>
-            </form></div>
-    </div>
-    <br>
-    <div>
-        <div>
-            {% if user %}
-            <p>Id : {{user.id}} </p>
-            <p>Name : {{user.name}} </p>
-            <p>Email : {{user.email}} </p>
-            {% endif %}
-        </div>
-    </div>
-    <div>
-        <div>
-            <form action="/income">
-                <button type="submit" method="get">Edit Income</button>
-            </form>
-            <form action="/expense">
-                <button type="submit" method="get">Edit Expense</button>
-            </form>
 
+    <div class="letterhead">
+        <div class="seal">FQ</div>
+        <div>
+            <h1>Your Profile</h1>
+            <span class="tagline">Account holder details</span>
         </div>
     </div>
-</div>
+
+    <div class="page page-narrow">
+
+        <div class="action-row">
+            <button class="back-link" onclick="window.location.href='dashboard'">Back</button>
+            <form action="/logout" style="margin-left:auto;">
+                <button type="submit">Logout</button>
+            </form>
+        </div>
+
+        <div class="ledger">
+            <div class="ledger-inner">
+
+                <p class="eyebrow">Account holder</p>
+
+                {% if user %}
+                <div class="record">
+                    <div class="profile-row">
+                        <span class="label">Id</span>
+                        <span class="value">{{ user.id }}</span>
+                    </div>
+                    <div class="profile-row">
+                        <span class="label">Name</span>
+                        <span class="value">{{ user.name }}</span>
+                    </div>
+                    <div class="profile-row">
+                        <span class="label">Email</span>
+                        <span class="value">{{ user.email }}</span>
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="profile-actions">
+                    <form action="/income">
+                        <button type="submit">Edit Income</button>
+                    </form>
+                    <form action="/expense">
+                        <button type="submit">Edit Expense</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

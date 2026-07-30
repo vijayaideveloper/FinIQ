@@ -4,211 +4,234 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Income - FinIQ</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}">
 </head>
 <body>
-<button onclick="window.location.href='/profile'">back</button>
-    <h1>Income Management</h1>
 
-    <div>
-
-        <form action="/income/create_button" method="post" style="display:inline;">
-            <button type="submit">Create</button>
-        </form>
-
-        <form action="/income/read_button" method="post" style="display:inline;">
-            <button type="submit">Read</button>
-        </form>
-
-        <form action="/income/read_all_button" method="post" style="display:inline;">
-            <button type="submit">Read All</button>
-        </form>
-
-        <form action="/income/update_button" method="post" style="display:inline;">
-            <button type="submit">Update</button>
-        </form>
-
-        <form action="/income/delete_button" method="post" style="display:inline;">
-            <button type="submit">Delete</button>
-        </form>
-
+    <div class="letterhead">
+        <div class="seal">FQ</div>
+        <div>
+            <h1>Income Management</h1>
+            <span class="tagline">Earnings ledger</span>
+        </div>
     </div>
 
-    <hr>
+    <div class="page">
 
-    <!-- CREATE -->
-    {% if method == "create" %}
+        <button class="back-link" onclick="window.location.href='/profile'">Back</button>
 
-    <h2>Create Income</h2>
+        <div class="ledger">
+            <div class="ledger-inner">
 
-    <form action="/income/create" method="post">
+                <div class="action-row">
+                    <form action="/income/create_button" method="post">
+                        <button type="submit">Create</button>
+                    </form>
 
-        <input
-            type="text"
-            name="title"
-            placeholder="Income Title"
-            required
-        >
+                    <form action="/income/read_button" method="post">
+                        <button type="submit">Read</button>
+                    </form>
 
-        <input
-            type="number"
-            name="amount"
-            placeholder="Amount"
-            step="0.01"
-            required
-        >
+                    <form action="/income/read_all_button" method="post">
+                        <button type="submit">Read All</button>
+                    </form>
 
-        <button type="submit">
-            Save
-        </button>
+                    <form action="/income/update_button" method="post">
+                        <button type="submit">Update</button>
+                    </form>
 
-    </form>
+                    <form action="/income/delete_button" method="post">
+                        <button type="submit">Delete</button>
+                    </form>
+                </div>
 
-    {% if message %}
-        <p>{{ message }}</p>
-    {% endif %}
+                <hr class="divider">
 
-    {% endif %}
+                <!-- CREATE -->
+                {% if method == "create" %}
 
-    <!-- READ -->
+                <p class="eyebrow">New entry</p>
+                <h2>Create Income</h2>
 
-    {% if method == "read" %}
+                <form action="/income/create" method="post" class="field-form">
 
-    <h2>Read Income</h2>
+                    <input
+                        type="text"
+                        name="title"
+                        placeholder="Income Title"
+                        required
+                    >
 
-    <form action="/income/read" method="post">
+                    <input
+                        type="number"
+                        name="amount"
+                        placeholder="Amount"
+                        step="0.01"
+                        required
+                    >
 
-        <input
-            type="number"
-            name="id"
-            placeholder="Income ID"
-            required
-        >
+                    <button type="submit" class="btn-primary">
+                        Save
+                    </button>
 
-        <button type="submit">
-            Search
-        </button>
+                </form>
 
-    </form>
+                {% if message %}
+                    <p class="message">{{ message }}</p>
+                {% endif %}
 
-    {% if record %}
+                {% endif %}
 
-    <hr>
+                <!-- READ -->
 
-    <p><strong>ID:</strong> {{ record.id }}</p>
-    <p><strong>Email:</strong> {{ record.email }}</p>
-    <p><strong>Title:</strong> {{ record.title }}</p>
-    <p><strong>Amount:</strong> {{ record.amount }}</p>
+                {% if method == "read" %}
 
-    {% endif %}
+                <p class="eyebrow">Lookup</p>
+                <h2>Read Income</h2>
 
-    {% endif %}
+                <form action="/income/read" method="post" class="field-form">
 
-    <!-- READ ALL -->
+                    <input
+                        type="number"
+                        name="id"
+                        placeholder="Income ID"
+                        required
+                    >
 
-    {% if method == "read_all" %}
+                    <button type="submit">
+                        Search
+                    </button>
 
-    <h2>All Income Records</h2>
+                </form>
 
-    {% if records %}
+                {% if record %}
 
-    <table border="1" cellpadding="5">
+                <hr class="divider">
 
-        <tr>
-            <th>ID</th>
-            <th>Email</th>
-            <th>Title</th>
-            <th>Amount</th>
-        </tr>
+                <div class="record">
+                    <p><strong>ID</strong> {{ record.id }}</p>
+                    <p><strong>Email</strong> {{ record.email }}</p>
+                    <p><strong>Title</strong> {{ record.title }}</p>
+                    <p><strong>Amount</strong> {{ record.amount }}</p>
+                </div>
 
-        {% for record in records %}
+                {% endif %}
 
-        <tr>
-            <td>{{ record.id }}</td>
-            <td>{{ record.email }}</td>
-            <td>{{ record.title }}</td>
-            <td>{{ record.amount }}</td>
-        </tr>
+                {% endif %}
 
-        {% endfor %}
+                <!-- READ ALL -->
 
-    </table>
+                {% if method == "read_all" %}
 
-    {% else %}
+                <p class="eyebrow">Full statement</p>
+                <h2>All Income Records</h2>
 
-    <p>No records found.</p>
+                {% if records %}
 
-    {% endif %}
+                <table>
 
-    {% endif %}
+                    <tr>
+                        <th>ID</th>
+                        <th>Email</th>
+                        <th>Title</th>
+                        <th>Amount</th>
+                    </tr>
 
-    <!-- UPDATE -->
+                    {% for record in records %}
 
-    {% if method == "update" %}
+                    <tr>
+                        <td>{{ record.id }}</td>
+                        <td>{{ record.email }}</td>
+                        <td>{{ record.title }}</td>
+                        <td>{{ record.amount }}</td>
+                    </tr>
 
-    <h2>Update Income</h2>
+                    {% endfor %}
 
-    <form action="/income/update" method="post">
+                </table>
 
-        <input
-            type="number"
-            name="id"
-            placeholder="Income ID"
-            required
-        >
+                {% else %}
 
-        <input
-            type="text"
-            name="title"
-            placeholder="New Title"
-            required
-        >
+                <p class="empty-note">No records found.</p>
 
-        <input
-            type="number"
-            name="amount"
-            placeholder="New Amount"
-            step="0.01"
-            required
-        >
+                {% endif %}
 
-        <button type="submit">
-            Update
-        </button>
+                {% endif %}
 
-    </form>
+                <!-- UPDATE -->
 
-    {% if message %}
-        <p>{{ message }}</p>
-    {% endif %}
+                {% if method == "update" %}
 
-    {% endif %}
+                <p class="eyebrow">Amend entry</p>
+                <h2>Update Income</h2>
 
-    <!-- DELETE -->
+                <form action="/income/update" method="post" class="field-form">
 
-    {% if method == "delete" %}
+                    <input
+                        type="number"
+                        name="id"
+                        placeholder="Income ID"
+                        required
+                    >
 
-    <h2>Delete Income</h2>
+                    <input
+                        type="text"
+                        name="title"
+                        placeholder="New Title"
+                        required
+                    >
 
-    <form action="/income/delete" method="post">
+                    <input
+                        type="number"
+                        name="amount"
+                        placeholder="New Amount"
+                        step="0.01"
+                        required
+                    >
 
-        <input
-            type="number"
-            name="id"
-            placeholder="Income ID"
-            required
-        >
+                    <button type="submit" class="btn-primary">
+                        Update
+                    </button>
 
-        <button type="submit">
-            Delete
-        </button>
+                </form>
 
-    </form>
+                {% if message %}
+                    <p class="message">{{ message }}</p>
+                {% endif %}
 
-    {% if message %}
-        <p>{{ message }}</p>
-    {% endif %}
+                {% endif %}
 
-    {% endif %}
+                <!-- DELETE -->
+
+                {% if method == "delete" %}
+
+                <p class="eyebrow">Remove entry</p>
+                <h2>Delete Income</h2>
+
+                <form action="/income/delete" method="post" class="field-form">
+
+                    <input
+                        type="number"
+                        name="id"
+                        placeholder="Income ID"
+                        required
+                    >
+
+                    <button type="submit">
+                        Delete
+                    </button>
+
+                </form>
+
+                {% if message %}
+                    <p class="message">{{ message }}</p>
+                {% endif %}
+
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>

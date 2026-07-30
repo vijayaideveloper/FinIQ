@@ -4,16 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FinIQ</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}">
 </head>
 <body>
-    <h1>Welcome to FinIQ</h1>
-    <h3>kick start your Finance IQ</h3>
-    <form action="/login" method="get">
-        <button type="submit">login</button>
-    </form>
-    <p>or</p>
-    <form action="/signup" method="get">
-        <button type="submit">signup</button>
-    </form>
+
+    <div class="letterhead">
+        <div class="seal">FQ</div>
+    </div>
+
+    <div class="page page-narrow">
+        <div class="hero">
+            <h1>Welcome to FinIQ</h1>
+            <p class="tagline">kick start your finance IQ</p>
+        </div>
+
+        <div class="auth-actions">
+            <form action="/login" method="get">
+                <button type="submit" class="btn-primary">Login</button>
+            </form>
+
+            <p class="or-divider">or</p>
+
+            <form action="/signup" method="get">
+                <button type="submit">Signup</button>
+            </form>
+        </div>
+    </div>
+
 </body>
 </html>
