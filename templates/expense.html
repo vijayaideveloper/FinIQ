@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense - FinIQ</title>
+</head>
+<body>
+    <button onclick="window.location.href='/profile'">back</button>
+    <h1>Expense Management</h1>
+
+    <div>
+
+        <form action="/expense/create_button" method="post" style="display:inline;">
+            <button type="submit">Create</button>
+        </form>
+
+        <form action="/expense/read_button" method="post" style="display:inline;">
+            <button type="submit">Read</button>
+        </form>
+
+        <form action="/expense/read_all_button" method="post" style="display:inline;">
+            <button type="submit">Read All</button>
+        </form>
+
+        <form action="/expense/update_button" method="post" style="display:inline;">
+            <button type="submit">Update</button>
+        </form>
+
+        <form action="/expense/delete_button" method="post" style="display:inline;">
+            <button type="submit">Delete</button>
+        </form>
+
+    </div>
+
+    <hr>
+
+    <!-- CREATE -->
+    {% if method == "create" %}
+
+    <h2>Create expense</h2>
+
+    <form action="/expense/create" method="post">
+
+        <input
+            type="text"
+            name="title"
+            placeholder="Expense Title"
+            required
+        >
+
+        <input
+            type="number"
+            name="amount"
+            placeholder="Amount"
+            step="0.01"
+            required
+        >
+
+        <button type="submit">
+            Save
+        </button>
+
+    </form>
+
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+
+    {% endif %}
+
+    <!-- READ -->
+
+    {% if method == "read" %}
+
+    <h2>Read Expense</h2>
+
+    <form action="/expense/read" method="post">
+
+        <input
+            type="number"
+            name="id"
+            placeholder="expense ID"
+            required
+        >
+
+        <button type="submit">
+            Search
+        </button>
+
+    </form>
+
+    {% if record %}
+
+    <hr>
+
+    <p><strong>ID:</strong> {{ record.id }}</p>
+    <p><strong>Email:</strong> {{ record.email }}</p>
+    <p><strong>Title:</strong> {{ record.title }}</p>
+    <p><strong>Amount:</strong> {{ record.amount }}</p>
+
+    {% endif %}
+
+    {% endif %}
+
+    <!-- READ ALL -->
+
+    {% if method == "read_all" %}
+
+    <h2>All Expense Records</h2>
+
+    {% if records %}
+
+    <table border="1" cellpadding="5">
+
+        <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Title</th>
+            <th>Amount</th>
+        </tr>
+
+        {% for record in records %}
+
+        <tr>
+            <td>{{ record.id }}</td>
+            <td>{{ record.email }}</td>
+            <td>{{ record.title }}</td>
+            <td>{{ record.amount }}</td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    {% else %}
+
+    <p>No records found.</p>
+
+    {% endif %}
+
+    {% endif %}
+
+    <!-- UPDATE -->
+
+    {% if method == "update" %}
+
+    <h2>Update Expense</h2>
+
+    <form action="/expense/update" method="post">
+
+        <input
+            type="number"
+            name="id"
+            placeholder="Expense ID"
+            required
+        >
+
+        <input
+            type="text"
+            name="title"
+            placeholder="New Title"
+            required
+        >
+
+        <input
+            type="number"
+            name="amount"
+            placeholder="New Amount"
+            step="0.01"
+            required
+        >
+
+        <button type="submit">
+            Update
+        </button>
+
+    </form>
+
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+
+    {% endif %}
+
+    <!-- DELETE -->
+
+    {% if method == "delete" %}
+
+    <h2>Delete Expense</h2>
+
+    <form action="/expense/delete" method="post">
+
+        <input
+            type="number"
+            name="id"
+            placeholder="Expense ID"
+            required
+        >
+
+        <button type="submit">
+            Delete
+        </button>
+
+    </form>
+
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+
+    {% endif %}
+
+</body>
+</html>

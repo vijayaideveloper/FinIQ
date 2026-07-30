@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinIQ Dashboard</title>
+</head>
+<body>
+
+    <h1>FinIQ Dashboard</h1>
+
+    <div>
+
+        <div>
+
+            <form action="/dashboard/" method="get" style="display:inline;">
+                <button type="submit">Generate</button>
+            </form>
+
+        </div>
+
+
+        <div>
+
+            <form action="/profile" method="get" style="display:inline;">
+                <button type="submit">Profile</button>
+            </form>
+        </div>
+
+        <br>
+
+        <div>
+            {% if image %}
+                <img src="{{ image }}" alt="Dashboard" width="700">
+            {% else %}
+                <p>No dashboard image generated yet. </p>
+            {% endif %}
+        </div>
+
+    </div>
+
+</body>
+</html>

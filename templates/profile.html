@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile-FinIQ</title>
+</head>
+<body>
+<div>
+    <div>
+        <div><button onclick="window.location.href='dashboard'">Back</button></div>
+        <div><form action="/logout">
+                <button type="submit" method="get">logout</button>
+            </form></div>
+    </div>
+    <br>
+    <div>
+        <div>
+            {% if user %}
+            <p>Id : {{user.id}} </p>
+            <p>Name : {{user.name}} </p>
+            <p>Email : {{user.email}} </p>
+            {% endif %}
+        </div>
+    </div>
+    <div>
+        <div>
+            <form action="/income">
+                <button type="submit" method="get">Edit Income</button>
+            </form>
+            <form action="/expense">
+                <button type="submit" method="get">Edit Expense</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
