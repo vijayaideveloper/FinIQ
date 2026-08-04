@@ -130,6 +130,7 @@ a { color: var(--brass-light); }
 }
 
 .page-narrow { max-width: 460px; }
+.page-wide { max-width: 96vw; width: 96vw; }
 
 /* ---------- The ledger page (card) ---------- */
 
@@ -382,8 +383,15 @@ tr:last-child td { border-bottom: 1px solid var(--rule); }
   border: 1px solid var(--rule);
   padding: 0.6rem;
   background: rgba(255,255,255,0.35);
+  display: block;
+  cursor: zoom-in;
 }
-.chart-frame img { width: 100%; display: block; }
+.chart-frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+  image-rendering: -webkit-optimize-contrast;
+}
 
 /* ---------- Profile summary card ---------- */
 

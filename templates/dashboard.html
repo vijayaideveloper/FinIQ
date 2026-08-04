@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    <div class="page">
+    <div class="page page-wide">
         <div class="ledger">
             <div class="ledger-inner">
 
@@ -34,9 +34,9 @@
 
                 {% if image %}
                     <p class="eyebrow">Overview</p>
-                    <div class="chart-frame">
+                    <a class="chart-frame" href="{{ image }}" target="_blank" rel="noopener">
                         <img src="{{ image }}" alt="Dashboard">
-                    </div>
+                    </a>
                 {% else %}
                     <p class="empty-note">No dashboard image generated yet.</p>
                 {% endif %}
