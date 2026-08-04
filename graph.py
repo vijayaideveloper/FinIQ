@@ -19,9 +19,17 @@ IMAGE_FOLDER.mkdir(exist_ok=True)
 engine = create_engine(DATABASE_URL)
 
 
-def load_data():
-    income = pd.read_sql_table("income", engine)
-    expense = pd.read_sql_table("expense", engine)
+def load_data(email):
+    income = pd.read_sql_query(
+        "SELECT * FROM income WHERE email = :email",
+        engine,
+        params={"email": email},
+    )
+    expense = pd.read_sql_query(
+        "SELECT * FROM expense WHERE email = :email",
+        engine,
+        params={"email": email},
+    )
     return income, expense
 
 
@@ -38,8 +46,8 @@ def prepare_data(income_df, expense_df):
     return income, expense
 
 
-def create_dashboard():
-    income_df, expense_df = load_data()
+def create_dashboard(email):
+    income_df, expense_df = load_data(email)
 
 
     if income_df.empty:
@@ -93,13 +101,17 @@ def create_dashboard():
 
     # 5 Assets Distribution
     ax5 = fig.add_subplot(grid[1, 1])
-    wedges, *_ = ax5.pie(
-        [total_income, max(profit, 0)],
-        labels=["Income", "Profit"],
-        autopct="%1.1f%%",
-    )
-    centre = plt.Circle((0, 0), 0.65, fc="white")
-    ax5.add_artist(centre)
+    assets_values = [total_income, max(profit, 0)]
+    if sum(assets_values) > 0:
+        wedges, *_ = ax5.pie(
+            assets_values,
+            labels=["Income", "Profit"],
+            autopct="%1.1f%%",
+        )
+        centre = plt.Circle((0, 0), 0.65, fc="white")
+        ax5.add_artist(centre)
+    else:
+        ax5.text(0.5, 0.5, "No Data Available", ha="center", va="center")
     ax5.set_title("Assets Distribution")
 
     # 6 Net Worth

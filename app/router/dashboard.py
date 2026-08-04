@@ -24,7 +24,7 @@ def dashboard(request: Request):
         return RedirectResponse("/", status_code=303)
 
     try:
-        result = create_dashboard()
+        result = create_dashboard(email)
     except Exception as exc:
         raise HTTPException(status_code=500, detail=f"Dashboard generation failed: {exc}") from exc
 
@@ -39,7 +39,7 @@ def generate_dashboard(request: Request):
         return RedirectResponse("/", status_code=303)
 
     try:
-        result = create_dashboard()
+        result = create_dashboard(email=email)
     except Exception as exc:
         raise HTTPException(status_code=500, detail=f"Dashboard generation failed: {exc}") from exc
 
