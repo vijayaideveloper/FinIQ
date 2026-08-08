@@ -1,0 +1,12 @@
+services:
+  finiq:
+    build: .
+    container_name: finiq
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: sqlite:///./users.db
+    volumes:
+      - ./users.db:/app/users.db
+      - ./image_dashboards:/app/image_dashboards
+    restart: unless-stopped
